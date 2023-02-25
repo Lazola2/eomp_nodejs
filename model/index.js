@@ -91,7 +91,7 @@ export class Client {
         let detail = req.body;
 
         // hashing the password
-        detail.clientPassword = await hash(detail.clientPassword, 15);
+        detail.password = await hash(detail.password, 15);
 
         // this information will be used for client authentication
         let client = {
