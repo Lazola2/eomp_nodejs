@@ -95,8 +95,8 @@ export class Client {
 
         // this information will be used for client authentication
         let client = {
-            emailAddress: detail.emailAddress,
-            clientPassword: detail.clientPassword
+            emailAddress: detail.email,
+            clientPassword: detail.password
         }
 
         // sql query
