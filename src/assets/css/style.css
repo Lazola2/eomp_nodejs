@@ -1,0 +1,71 @@
+:root {
+    --theme-color: rgb(252, 153, 39);
+}
+
+*:not(.usericon),
+::before:not(.usericon),
+::after:not(.usericon) {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+.navbar {
+    
+    height: 10vh;
+    font-weight: 100;
+    position: fixed;
+}
+
+.navbar-nav {
+    margin-left: auto;
+    margin-right: 2rem;
+}
+
+.navbar a {
+    color: var(--theme-color); 
+    margin-left: 1.5rem;
+    /* color: grey; */
+    text-decoration: none;
+}
+
+.backgroundimg {
+    width: 100vw;
+    height: 100vh;
+    background: 
+        linear-gradient(to bottom right, rgba(0,0,0,.7) 45% , rgb(252, 153, 39, .3)) 55%,
+        url(https://i.postimg.cc/DZm69sHc/3840x2160-mclaren-570s-sports-car-orange-4k-1538935197.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.paragraph {
+    
+    width: fit-content;
+    height: fit-content;
+    padding-top: 15rem;
+    padding-left: 15rem;
+    text-align: start;
+    scale: 1.2;
+}
+
+.paragraph h3 {
+    font-size: xxx-large;
+    font-weight: 600;
+    color: var( --theme-color);
+}
+
+.buy, .price {
+    color: white;
+}
+
+p {
+    color: white;
+    text-align: start;
+}
+
+.orange {
+    color: var(--theme-color);
+}
+
