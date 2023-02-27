@@ -1,10 +1,11 @@
 // database configuration
 import db from '../config/index.js'
+
 // bcrypt module
 import {hash, compare, hashSync, genSaltSync} from 'bcrypt'
+
 // middleware for creating a token
 import createToken from '../middleware/AuthenticateClient.js'
-// const createToken = createTokenModule
 
 // create a Client class
 export class Client {
@@ -154,20 +155,164 @@ export class Client {
         });  
     }
 }
-// export default Client
 
+// create a Vehicles class
+export class Vehicles {
+    // fetch all Vehicles
+    fetchVehicles(req, res){
+        const qryStr = `
+        SELECT vehicle_id, type, model, color, price, is_new, image
+        FROM Vehicles;
+        `;
 
+        db.query(qryStr, (err, data) => {
+            if (err) throw err;
+            res.status(200).json({
+                results: data
+            });
+        });
+    }
 
+    // fetch Vehicle
+    fetchVehicle(req, res){
+        const qryStr = `
+        SELECT vehicle_id, type, model, color, price, is_new, image
+        FROM Vehicles
+        WHERE vehicle_id = ?;
+        `;
 
+        db.query(qryStr, [req.params.id], (err, data) => {
+            if (err) throw err;
+            res.status(200).json({
+                results: data
+            });
+        });
+    }
 
+    // create a Client
+    async addVehicle(req, res) {
+        // payload: data from the user
+        let detail = req.body;
+        console.log(detail);
 
+        // sql query
+        const qryStr = 'INSERT INTO Vehicles SET ?;';
+        db.query(qryStr, [detail], err => {
+            if (err) {
+                res.status(401).json({err});
+                return;
+            }
+            res.status(200).json({msg: 'Vehicle record is saved.'});
+        });
+    }
 
+    // update client details
+    updateVehicles(req, res) {
+        let data = req.body;
+        const qryStr = `
+            UPDATE Vehicles
+            SET ?
+            WHERE vehicle_id = ?;`
 
+        db.query(qryStr, [data, req.params.id], (err) => {
+            if (err) throw err;
+            res.status(200).json({
+                msg: "Vehicle record has been updated."
+            });
+        });
+    }
+    
+    // delete a client record
+    deleteVehicle(req, res) {
+        const qryStr = `
+            DELETE FROM Vehicles
+            WHERE vehicle_id = ?;`
+    
+        db.query(qryStr, [req.params.id], (err) => {
+            if (err) throw err;
+            res.status(200).json({
+                msg: 'Vehicle record has been removed successfully.'
+            });
+        });  
+    }
+}
 
+// create a Purchase
+export class Purchase {
+    // fetch all Vehicles
+    fetchPurchases(req, res){
+        const qryStr = `
+        SELECT purchase_id, client_id, vehicle_id, purchase_date, invoice_price, delivery_status
+        FROM Purchase;
+        `;
 
+        db.query(qryStr, (err, data) => {
+            if (err) throw err;
+            res.status(200).json({
+                results: data
+            });
+        });
+    }
 
+    // fetch Vehicle
+    fetchPurchase(req, res){
+        const qryStr = `
+        SELECT purchase_id, client_id, vehicle_id, purchase_date, invoice_price, delivery_status
+        FROM Purchase
+        WHERE purchase_id = ?;
+        `;
 
+        db.query(qryStr, [req.params.id], (err, data) => {
+            if (err) throw err;
+            res.status(200).json({
+                results: data
+            });
+        });
+    }
 
+    // create a Client
+    async createPurchase(req, res) {
+        // payload: data from the user
+        let detail = req.body;
 
+        // sql query
+        const qryStr = 'INSERT INTO Purchase SET ?;';
+        db.query(qryStr, [detail], err => {
+            if (err) {
+                res.status(401).json({err});
+                return;
+            }
+            res.status(201).json({msg: 'Purchase created successfully.'});
+        });
+    }
 
+    // update client details
+    updatePurchase(req, res) {
+        let data = req.body;
+        const qryStr = `
+            UPDATE Purchase
+            SET ?
+            WHERE purchase_id = ?;`
 
+        db.query(qryStr, [data, req.params.id], (err) => {
+            if (err) throw err;
+            res.status(200).json({
+                msg: "Your purchase has been updated successful."
+            });
+        });
+    }
+    
+    // delete a client record
+    cancelPurchase(req, res) {
+        const qryStr = `
+            DELETE FROM Purchase
+            WHERE purchase_id = ?;`
+    
+        db.query(qryStr, [req.params.id], (err) => {
+            if (err) throw err;
+            res.status(200).json({
+                msg: 'Purchase has been canceled successfully.'
+            });
+        });  
+    }
+}

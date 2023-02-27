@@ -1,8 +1,9 @@
 import pkg from 'dotenv'
-const dotenv = pkg
 import {createPool} from 'mysql'
 
+const dotenv = pkg
 dotenv.config();
+
 const connection = createPool({
     host: process.env.HOST,
     user: process.env.USER,

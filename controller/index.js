@@ -1,7 +1,8 @@
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
-import {Client /*Product*/} from '../model/index.js'
+import {Client, Purchase, /*Product*/
+Vehicles} from '../model/index.js'
 import { Router } from 'express'
 
 // code to fix error: __dirname is not defined
@@ -14,8 +15,6 @@ const route = express.Router();
 
 // Create a client instance
 const client = new Client();
-// Product instance
-// const product = new Product();
 
 route.get('/', (req, res)=>{
     res.status(200).sendFile(path.join(__dirname, '../view/index.html'));
@@ -23,7 +22,7 @@ route.get('/', (req, res)=>{
 
 // Client's Route
 // Login
-route.post('/login', bodyParser.json(), (req, res)=>{
+route.post('/login', bodyParser.json(), (req, res) => {
     client.login(req, res);
 })
 
@@ -37,7 +36,7 @@ route.get('/client/:id', (req, res)=>{
     client.fetchClient(req, res);
 });
 
-// Update 
+// Update : works
 route.put('/client/:id',bodyParser.json(), (req, res)=>{
     client.updateClient(req, res);
 });
@@ -49,32 +48,63 @@ route.post('/register', bodyParser.json(), (req, res)=> {
 route.delete('/client/:id', (req, res)=>{
     client.deleteClient(req, res);
 });
-// =====Products======
-// Fetch all products
-// route.get('/products', (req, res)=> {
-//     product.fetchProducts(req, res);
-// })
-// // Fetch a single product
-// route.get('/product/:id', 
-// (req, res)=> {
-//     product.fetchProduct(req, res);
-// })
-// // Add a new product
-// route.post('/product', 
-// bodyParser.json(), 
-// (req, res)=> {
-//     product.addProduct(req, res);
-// })
-// // Update a product
-// route.put('/product/:id', 
-// bodyParser.json(),
-// (req, res)=> {
-//     product.updateProduct(req, res);
-// })
-// // Delete a product
-// route.delete('/product/:id', 
-// (req, res)=> {
-//     product.deleteProduct(req, res);
-// })
+
+// =====Vehicles======
+// Fetch all vehicles
+const vehicles = new Vehicles();
+
+route.get('/vehicles', (req, res)=> {
+    vehicles.fetchVehicles(req, res);
+})
+
+// Fetch a single vehicle
+route.get('/vehicle/:id', (req, res) => {
+    vehicles.fetchVehicle(req, res);
+})
+
+// Add a new vehicle
+route.post('/vehicles', bodyParser.json(), (req, res)=> {
+    vehicles.addVehicle(req, res);
+})
+
+// Update a product
+route.put('/vehicle/:id', bodyParser.json(), (req, res)=> {
+    vehicles.updateVehicles(req, res);
+})
+
+// Delete a product
+route.delete('/vehicle/:id', (req, res)=> {
+    vehicles.deleteVehicle(req, res);
+})
+
+
+// =====Purchase======
+const purchase = new Purchase();
+
+// Fetch all purchases
+route.get('/purchases', (req, res)=> {
+    purchase.fetchPurchases(req, res);
+})
+
+// Fetch a single purchase
+route.get('/purchase/:id', (req, res) => {
+    purchase.fetchPurchase(req, res);
+})
+
+// Add a new purchase
+route.post('/purchases', bodyParser.json(), (req, res)=> {
+    purchase.createPurchase(req, res);
+})
+
+// Update a purchase
+route.put('/purchase/:id', bodyParser.json(), (req, res)=> {
+    purchase.updatePurchase(req, res);
+})
+
+// cancel a purchase
+route.delete('/purchase/:id', (req, res)=> {
+    purchase.cancelPurchase(req, res);
+})
+
 
 export default route;
