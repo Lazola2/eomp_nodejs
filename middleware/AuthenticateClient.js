@@ -7,11 +7,11 @@ const {sign, verify}  = jwt
 dotenv.config();
 
 // Creating a token
-function createToken(client) {
+export default function createToken(client) {
     return sign(
         {
             email: client.email,
-            clientPassword: clientPassword
+            clientPassword: client.client_password
         },
         process.env.SECRET_KEY, 
         { 
@@ -20,7 +20,7 @@ function createToken(client) {
     );
 }
 //
-function verifyAToken(req, res, next) {
+export  function verifyAToken(req, res, next) {
     try{
         const token = req.cookies["LegitClient"] !== null ? req.cookies["LegitClient"] :
         "Please register" ;
@@ -40,4 +40,4 @@ function verifyAToken(req, res, next) {
         res.status(400).json({err: e.message});
     }
 }
-export default {createToken, verifyAToken};
+// export default {createToken, verifyAToken};

@@ -27,25 +27,25 @@ route.post('/login', bodyParser.json(), (req, res)=>{
     client.login(req, res);
 })
 
-// get all clients
+// get all clients: works
 route.get('/clients', (req, res)=>{
     client.fetchClients(req, res);
 });
 
-// get a user
+// get a user : works
 route.get('/client/:id', (req, res)=>{
     client.fetchClient(req, res);
 });
 
-// Update
+// Update 
 route.put('/client/:id',bodyParser.json(), (req, res)=>{
     client.updateClient(req, res);
 });
-// Register
+// Register : works
 route.post('/register', bodyParser.json(), (req, res)=> {
     client.createClient(req, res);
 })
-// Delete
+// Delete : works
 route.delete('/client/:id', (req, res)=>{
     client.deleteClient(req, res);
 });

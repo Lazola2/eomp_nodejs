@@ -1,22 +1,23 @@
 // database configuration
 import db from '../config/index.js'
 // bcrypt module
-import {hash, compare, hashSync} from 'bcrypt'
+import {hash, compare, hashSync, genSaltSync} from 'bcrypt'
 // middleware for creating a token
-import createTokenModule from '../middleware/AuthenticateClient.js'
-const createToken = createTokenModule
+import createToken from '../middleware/AuthenticateClient.js'
+// const createToken = createTokenModule
 
 // create a Client class
 export class Client {
     // log in
     login(req, res){
-        const {emailAddress, clientPassword} = req.body;
+        const {email, client_password} = req.body;
         const qryStr = `
-            SELECT first_name, last_name, id_number, cellphone, email, password, user_role, address, profile_img
+            SELECT client_id, first_name, last_name, id_number, cellphone, email, client_password, user_role, profile_img
             FROM Clients
-            WHERE email = '${emailAddress}';
+            WHERE email = '${email}';
         `;
         db.query(qryStr, async (err, data) => {
+            console.log(data);
             if (err) throw err;
             if ((!data.length) || (data == null)) {
                 res.status(401).json({
@@ -24,11 +25,11 @@ export class Client {
                 })
             }
             else {
-                await compare(clientPassword, data[0].password, (_err, _result) => {
+                await compare(client_password, data[0].client_password, (_err, _result) => {
                     if (_err) throw _err;
                     // create a jw token
                     const jwToken = createToken({
-                        emailAddress, clientPassword
+                        email, client_password
                     });
 
                     // saving 
@@ -57,7 +58,7 @@ export class Client {
     // fetch Clients
     fetchClients(req, res){
         const qryStr = `
-        SELECT client_id, first_name, last_name, id_number, cellphone, email, user_role, address, profile_img
+        SELECT client_id, first_name, last_name, id_number, cellphone, client_password, email, user_role, profile_img
         FROM Clients;
         `;
 
@@ -72,7 +73,7 @@ export class Client {
     // fetch Clients
     fetchClient(req, res){
         const qryStr = `
-        SELECT client_id, first_name, last_name, id_number, cellphone, email, user_role, address, profile_img
+        SELECT client_id, first_name, client_password, last_name, id_number, cellphone, email, user_role, profile_img
         FROM Clients
         WHERE client_id = ?;
         `;
@@ -89,14 +90,17 @@ export class Client {
     async createClient(req, res) {
         // payload: data from the user
         let detail = req.body;
+        console.log(detail);
 
         // hashing the password
-        detail.password = await hash(detail.password, 15);
+        let salt = genSaltSync(15); 
+        console.log(detail.client_password);
+        detail.client_password = await hash(detail.client_password, salt);
 
         // this information will be used for client authentication
         let client = {
             emailAddress: detail.email,
-            clientPassword: detail.password
+            clientPassword: detail.client_password
         }
 
         // sql query
@@ -120,8 +124,8 @@ export class Client {
     // update client details
     updateClient(req, res) {
         let data = req.body;
-        if( (data.clientPassword !== null) || (data.clientPassword !== undefined)){
-            data.clientPassword = hashSync(data.clientPassword, 15);
+        if( (data.client_password !== null) || (data.client_password !== undefined)){
+            data.client_password = hashSync(data.client_password, 15);
         }
         const qryStr = `
             UPDATE Clients
