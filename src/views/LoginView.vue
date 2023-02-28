@@ -30,14 +30,16 @@ export default {
 
     .loginLeft {
         width: 100%;
-        padding: 12rem 0 0 12rem;
-        padding-top: 8rem;
+        padding: 0 0 0 12rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .loginRight {
         width: 100%;
-        padding: 12rem 15rem 0 5rem;
-        padding-top: 8rem; 
+        padding: 0 15rem 0 5rem;
+        
         display: flex;
         justify-content: center;
         align-items: center;

@@ -4,15 +4,13 @@
 </template>
 
 <script>
-import navbar from "@/components/Navbar.vue";
-
-export default {
-  name: 'HomeView',
-  components: {
-    navbar
+  import navbar from "@/components/Navbar.vue";
+  export default {
+    name: 'HomeView',
+    components: {
+      navbar
+    }
   }
-}
-
 </script>
 
 <style>
@@ -21,6 +19,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  font-family: 'Nunito', sans-serif;
 }
 
 
