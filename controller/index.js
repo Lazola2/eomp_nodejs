@@ -105,5 +105,4 @@ route.delete('/purchase/:id', (req, res)=> {
     purchase.cancelPurchase(req, res);
 })
 
-
 export default route;
