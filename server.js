@@ -3,8 +3,8 @@ const express = expressModule
 import route from './controller/index.js'
 import pkg from 'cors'
 const cors = pkg
-import errorHandlingModule from './middleware/ErrorHandling.js'
-const errorHandling = errorHandlingModule
+import errorHandling from './middleware/ErrorHandling.js'
+// const errorHandling = errorHandlingModule
 import cookieParser from 'cookie-parser'
 
 const app = express();
@@ -26,7 +26,7 @@ app.use(
     cors(),
     cookieParser(),
     express.json,
-    express.urlencoded({extended: false})
+    express.urlencoded({extended: true})
 )
 
 // Server is running
@@ -34,4 +34,4 @@ app.listen(5000, () => {
     console.log(`Server is running`)
 });
 // Handling all errors
-// app.use(errorHandling);
+app.use(errorHandling);
