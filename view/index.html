@@ -18,44 +18,138 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
         }
 
-        table {
-            opacity: 1;
+        .table-holder {
+          background-color: #ffffffd5;
+          border-radius: 10px;
+          height: 70%;
+          width: 60%;
+          overflow-y: auto;
         }
     </style>
 </head>
 <body>
-    <h1>This is the API description page</h1>
+    <h1 class="text-white mb-4">Routes Description</h1>
     
-    <table class="table table-striped-columns">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+    <div class="table-holder">
+      <table class="table table-striped-columns position-relative">
+          <thead class="position-sticky">
+            <tr>
+              <th scope="col">Request</th>
+              <th scope="col">Route</th>
+              <th scope="col">Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Clients</th>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/</td>
+              <td>Route to this page (home page)</td>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/clients</td>
+              <td>Requests data for all clients</td>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/client/:id</td>
+              <td>Request data for a client with a matching id</td>
+            </tr>
+
+            <tr>
+              <td>post</td>
+              <td>/login</td>
+              <td>Logs the client</td>
+            </tr>
+            <tr>
+              <td>put</td>
+              <td>/client/:id</td>
+              <td>Updates a client record with a matching id</td>
+            </tr>
+            <tr>
+              <td>post</td>
+              <td>/register</td>
+              <td>Registers a new client</td>
+            </tr>
+
+
+            <tr>
+              <td>delete</td>
+              <td>/client/:id</td>
+              <td>Deletes a client record with a matching id</td>
+            </tr>
+            <tr>
+
+            <!-- vehicles -->
+             <th>Vehicles</th>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/vehicles</td>
+              <td>Requests data for all vehicles</td>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/vehicle/:id</td>
+              <td>Registers data for a vehicle with a matching id</td>
+            </tr>
+            <tr>
+              <td>post</td>
+              <td>/vehicle/:id</td>
+              <td>Adds a new vehicle.</td>
+            </tr>
+            <tr>
+              <td>put</td>
+              <td>/vehicle/:id</td>
+              <td>Updates a record of a vehicle with a matching id.</td>
+            </tr>
+            <tr>
+              <td>delete</td>
+              <td>/vehicle/:id</td>
+              <td>Deletes a record of a vehicle with a matching id.</td>
+            </tr>
+
+             <!-- vehicles -->
+             <th>Purchases</th>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/purchases</td>
+              <td>Requests data for all purchases</td>
+            </tr>
+            <tr>
+              <td>get</td>
+              <td>/purchase/:id</td>
+              <td>Requests data for a purchase with a clients's matching id</td>
+            </tr>
+            <tr>
+              <td>post</td>
+              <td>/purchase/:id</td>
+              <td>Creates a new purchase.</td>
+            </tr>
+            <tr>
+              <td>put</td>
+              <td>/purchase/:id</td>
+              <td>Updates a record of a purchase with a matching id.</td>
+            </tr>
+            <tr>
+              <td>delete</td>
+              <td>/purchase/:id</td>
+              <td>Deletes a record of a purchase with a matching id.</td>
+            </tr>
+            
+          </tbody>
       </table>
+    </div>
 </body>
 </html>
