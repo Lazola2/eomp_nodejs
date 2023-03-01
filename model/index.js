@@ -161,7 +161,7 @@ export class Vehicles {
     // fetch all Vehicles
     fetchVehicles(req, res){
         const qryStr = `
-        SELECT vehicle_id, type, model, color, price, is_new, image
+        SELECT vehicle_id, brand, type, model, color, price, is_new, image
         FROM Vehicles;
         `;
 
@@ -176,7 +176,7 @@ export class Vehicles {
     // fetch Vehicle
     fetchVehicle(req, res){
         const qryStr = `
-        SELECT vehicle_id, type, model, color, price, is_new, image
+        SELECT vehicle_id, brand, type, model, color, price, is_new, image
         FROM Vehicles
         WHERE vehicle_id = ?;
         `;
