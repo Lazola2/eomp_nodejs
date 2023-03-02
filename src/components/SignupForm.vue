@@ -1,29 +1,29 @@
 <template lang="">
-  <form action="" class="pt-5">
+  <form @submit.prevent="signUp" class="pt-5">
     <!-- name and surname holder -->
     <div class="name-surname-holder holders d-flex gap-2">
-        <input class="firstname form-control" type="text"  placeholder="Name" required>
-        <input class="lastname form-control" type="text" placeholder="Surname" required>
+        <input class="firstname form-control" type="text"  placeholder="Name" required v-model="first_name">
+        <input class="lastname form-control" type="text" placeholder="Surname" required v-model="last_name">
     </div>
     
     <!-- id number holder -->
     <div class="id-number-holder holders">
-        <input class="id-number form-control" type="text" max="13"  placeholder="Id number" required>
+        <input class="id-number form-control" type="text" max="13"  placeholder="Id number" required v-model="id_number">
     </div>
     
     <!-- cellphone holder -->
     <div class="cellphone-holder holders">
-        <input class="cellphone form-control" type="text"  placeholder="cellphone number" required>
+        <input class="cellphone form-control" type="text"  placeholder="cellphone number" required v-model="cellphone">
     </div>
 
     <!-- email holder -->
     <div class="email-holder holders">
-        <input class="email form-control" type="email"  placeholder="email" required>
+        <input class="email form-control" type="email"  placeholder="email" required v-model="email">
     </div>
 
     <!-- password holder -->
     <div class="password-holder holders">
-        <input class="password form-control" type="password"  placeholder="password" required>
+        <input class="password form-control" type="password"  placeholder="password" required v-model="client_password">
     </div>
     
     <!-- repeat password holder -->
@@ -44,7 +44,41 @@
 </template>
 <script>
 export default {
-  name: "signupForm",
+    name: "signupForm",
+    data(){
+        return {
+            payload: {
+                first_name: '',
+                last_name: '',
+                id_number: '',
+                cellphone: '',
+                email: '',
+                client_password: '',
+                profile_img: ''
+            }
+        };
+    },
+    computed: {
+        message () {
+            return this.$store.state.message
+        }
+    },
+    methods: {
+        signUp() {
+            console.log({
+                first_name: this.first_name,
+                last_name: this.last_name,
+                id_number: this.id_number,
+                cellphone: this.cellphone,
+                email: this.email,
+                client_password: this.client_password,
+                profile_img: this.profile_img
+            });
+            this.$store.dispatch('signUp', this.payload);
+            console.log(this.$store.state.client);
+            console.log(this.message);
+        }
+    }
 };
 </script>
 <style scoped>

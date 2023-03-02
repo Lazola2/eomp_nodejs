@@ -1,10 +1,10 @@
 <template lang="">
-  <form action="">
-    <div class="usericon">
+  <form @submit.prevent="login">
+    <div class="user-icon">
         <i class="fa-solid fa-user"></i>
     </div>
     <div class="form-floating">
-      <input
+      <input v-model="payload.email"
         type="email"
         class="form-control"
         id="floatingInput"
@@ -13,7 +13,7 @@
       <label for="floatingInput">Email address</label>
     </div>
     <div class="form-floating">
-      <input
+      <input v-model="payload.client_password"
         type="password"
         class="form-control"
         id="floatingPassword"
@@ -28,15 +28,47 @@
         <a href="">Forgot password?</a> 
     </div>
     <div class="login">
-        <button class="btn-login">Log in</button> 
-    </div>
-    
-    
+        <!-- <button class="btn-login" @click.prevent="login">Log in</button>  -->
+        <button class="btn-login" type="submit">Log in</button>
+    </div>  
   </form>
 </template>
 <script>
+// import {mapGetters, mapActions} from 'vuex';
+// import axios from 'axios'
 export default {
-    name: 'loginForm'
+    name: 'loginForm',
+    data(){
+        return {
+            payload: {
+                email: '',
+                client_password: ''
+            }
+        };
+    },
+    computed: {
+        message () {
+            return this.$store.state.message
+        }
+    },
+    methods: {
+        login() {
+            // console.log({
+            //     email_address: this.email_address,
+            //     password: this.password
+            // })
+            // const res = await axios.post('https://node-api-eomp.onrender.com/login', {
+            //     email: this.email_address,
+            //     client_password: this.password
+            // });
+            // const {result, msg, err} = res.data
+
+            // console.log(result, msg, err);
+            this.$store.dispatch('signIn', this.payload);
+            console.log(this.$store.state.client);
+            console.log(this.message);
+        }
+    }
 };
 </script>
 <style scoped>
@@ -51,14 +83,14 @@ export default {
         align-items: center;
         color: black;
     }
-    .usericon {
+    .user-icon {
         width: 10rem;
         height: 10rem;
         display: flex;
         align-items: center;
         justify-content: center;
     }
-    .usericon i {
+    .user-icon i {
         scale: 5;
         color: var(--theme-color);
     }

@@ -43,6 +43,14 @@ const routes = [
       return import('../views/AdminView.vue')
     }
   }
+  ,
+  {
+    path: '/logged',
+    name: 'logged',
+    component: function () {
+      return import('../views/LoggedUserView.vue')
+    }
+  }
 ]
 
 const router = createRouter({

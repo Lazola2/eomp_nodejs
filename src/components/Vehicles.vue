@@ -15,7 +15,7 @@
                 <!-- type -->
                 <select name="type" id="type" class="form-control" v-model="type">
                     <option value="Type">Type</option>
-                    <option value="Coup'e">Coup'e</option>
+                    <option value="Coupe">Coupe</option>
                     <option value="SUV">SUV</option>
                     <option value="Truck">Truck</option>
                     <option value="Sedan">Sedan</option>
@@ -25,8 +25,8 @@
                  <!-- Condition -->
                  <select name="condition" id="condition" class="form-control" v-model="condition">
                     <option value="Condition">Condition</option>
-                    <option value="New">New</option>
-                    <option value="Pre-Owned">Pre-Owned</option>
+                    <option value="1">New</option>
+                    <option value="0">Pre-Owned</option>
                 </select>
 
                  <!-- color -->
@@ -39,7 +39,7 @@
                     <option value="Red">Red</option>
                 </select>
 
-                <button class="btn btn-dark text-white px-5" @click.prevent=filterByBrand> Filter </button>
+                <button class="btn btn-dark text-white px-5" @click.prevent=filterVehicles> Filter </button>
             </form>
         </div>
         <div v-for="vehicle in vehicles" :key="vehicle">
@@ -68,18 +68,17 @@
     </div>
 </template>
 <script>
-import {mapGetters, mapActions} from 'vuex';
+import {mapGetters, mapActions, mapMutations} from 'vuex';
 export default {
     name: 'Vehicles',
     computed: {
         ...mapGetters(['vehicles','vehicle']),  
     },
     methods: {
-        ...mapActions(['fetchVehicles', 'fetchVehicle']),
-
-
-        
-        filterByBrand(){
+        ...mapActions(['fetchVehicles', 'fetchVehicle']), 
+        ...mapMutations(['setVehicles']),
+        filterVehicles(){
+            
             let vehicles = this.vehicles;
             
             // filter by brand
@@ -95,21 +94,47 @@ export default {
             let filteredByType = this.type === 'Type' ? filteredByColor :
                 filteredByColor.filter(vehicle => vehicle.type === this.type);
                 
-                // filter by condition
-                let filteredByCondition = this.condition === 'Condition' ? filteredByType :
-                filteredByType.filter(vehicle => vehicle.condition === this.condition);  
-                console.log(filteredByCondition);
+            // filter by condition
+            let filteredByCondition = this.condition === 'Condition' ? filteredByType :
+            filteredByType.filter(vehicle => {
+                console.log('this.condition: ', this.condition, typeof this.condition);
+                console.log('vehicle.is_new: ', vehicle.is_new, typeof vehicle.is_new);
+                return vehicle.is_new == this.condition
+            });  
+
            
-            // console.log(filteredByCondition); 
+            if (this.filtered === false){
+                this.setVehicles(filteredByCondition)
+                this.filtered = true;
+            }
+            else {
+                this.fetchVehicles();
+                this.setVehicles(filteredByCondition)
+                this.filtered = false;
+            }
+
+            
+            // alert(this.filtered);
+            // setTimeout(()=> {
+            //     this.fetchVehicles();
+            // }, 3000);
+            // console.log(filteredByCondition);
+            // return the final filter
+            // return filteredByCondition;
+            // this.setVehicles(this.keepVehicles);
+            // this.setVehicles(filteredByCondition);
+           
         }
+
+        
     },
     created(){
         this.fetchVehicles();
         this.fetchVehicle();
     },
-
     data(){
         return {
+            filtered: false,
             brand: 'Brand',
             color:'Color',
             type: 'Type',
