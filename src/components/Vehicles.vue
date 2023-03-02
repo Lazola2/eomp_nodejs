@@ -76,6 +76,9 @@ export default {
     },
     methods: {
         ...mapActions(['fetchVehicles', 'fetchVehicle']),
+
+
+        
         filterByBrand(){
             let vehicles = this.vehicles;
             
