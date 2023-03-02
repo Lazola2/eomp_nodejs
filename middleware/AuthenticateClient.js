@@ -11,7 +11,7 @@ export default function createToken(client) {
     return sign(
         {
             email: client.email,
-            clientPassword: client.client_password
+            client_password: client.client_password
         },
         process.env.SECRET_KEY, 
         { 
