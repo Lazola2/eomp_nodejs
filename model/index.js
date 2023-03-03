@@ -13,7 +13,7 @@ export class Client {
     login(req, res){
         const {email, client_password} = req.body;
         const qryStr = `
-            SELECT client_id, first_name, last_name, id_number, cellphone, email, client_password, user_role, profile_img
+            SELECT client_id, first_name, last_name, gender, cellphone, email, client_password, user_role, profile_img
             FROM Clients
             WHERE email = '${email}';
         `;
@@ -74,7 +74,7 @@ export class Client {
     // fetch Clients
     fetchClient(req, res){
         const qryStr = `
-        SELECT client_id, first_name, client_password, last_name, id_number, cellphone, email, user_role, profile_img
+        SELECT client_id, first_name, client_password, last_name, gender, cellphone, email, user_role, profile_img
         FROM Clients
         WHERE client_id = ?;
         `;
