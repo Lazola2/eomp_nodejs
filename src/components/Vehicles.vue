@@ -78,7 +78,6 @@ export default {
         ...mapActions(['fetchVehicles', 'fetchVehicle']), 
         ...mapMutations(['setVehicles']),
         filterVehicles(){
-            
             let vehicles = this.vehicles;
             
             // filter by brand

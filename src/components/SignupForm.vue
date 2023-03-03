@@ -43,6 +43,7 @@
   </form>
 </template>
 <script>
+import {mapGetters, mapActions, mapMutations} from 'vuex';
 export default {
     name: "signupForm",
     data(){
@@ -54,7 +55,8 @@ export default {
                 cellphone: '',
                 email: '',
                 client_password: '',
-                profile_img: ''
+                profile_img: '',
+                
             }
         };
     },
@@ -63,7 +65,11 @@ export default {
             return this.$store.state.message
         }
     },
+    created() {
+        this.fetchClients();
+    },
     methods: {
+        ...mapActions(['fetchClients']),
         signUp() {
             console.log({
                 first_name: this.first_name,
