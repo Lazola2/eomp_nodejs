@@ -79,7 +79,7 @@ export class Client {
         WHERE client_id = ?;
         `;
 
-        db.query(qryStr, [req.params.id], (err, data) => {
+        db.query(qryStr, [req.params.client_id], (err, data) => {
             if (err) throw err;
             res.status(200).json({
                 results: data
@@ -133,7 +133,7 @@ export class Client {
             SET ?
             WHERE client_id = ?;`
 
-        db.query(qryStr, [data, req.params.id], (err) => {
+        db.query(qryStr, [data, req.params.client_id], (err) => {
             if (err) throw err;
             res.status(200).json({
                 msg: "Client record has been updated."

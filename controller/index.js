@@ -77,32 +77,32 @@ route.delete('/vehicle/:id', (req, res)=> {
 })
 
 
-// =====Purchase======
-const purchase = new Purchase();
+// // =====Purchase======
+// const purchase = new Purchase();
 
-// Fetch all purchases
-route.get('/purchases', (req, res)=> {
-    purchase.fetchPurchases(req, res);
-})
+// // Fetch all purchases
+// route.get('/purchases', (req, res)=> {
+//     purchase.fetchPurchases(req, res);
+// })
 
-// Fetch a single purchase
-route.get('/purchase/:id', (req, res) => {
-    purchase.fetchPurchase(req, res);
-})
+// // Fetch a single purchase
+// route.get('/purchase/:id', (req, res) => {
+//     purchase.fetchPurchase(req, res);
+// })
 
-// Add a new purchase
-route.post('/purchases', bodyParser.json(), (req, res)=> {
-    purchase.createPurchase(req, res);
-})
+// // Add a new purchase
+// route.post('/purchases', bodyParser.json(), (req, res)=> {
+//     purchase.createPurchase(req, res);
+// })
 
-// Update a purchase
-route.put('/purchase/:id', bodyParser.json(), (req, res)=> {
-    purchase.updatePurchase(req, res);
-})
+// // Update a purchase
+// route.put('/purchase/:id', bodyParser.json(), (req, res)=> {
+//     purchase.updatePurchase(req, res);
+// })
 
-// cancel a purchase
-route.delete('/purchase/:id', (req, res)=> {
-    purchase.cancelPurchase(req, res);
-})
+// // cancel a purchase
+// route.delete('/purchase/:id', (req, res)=> {
+//     purchase.cancelPurchase(req, res);
+// })
 
 export default route;
