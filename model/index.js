@@ -59,7 +59,7 @@ export class Client {
     // fetch Clients
     fetchClients(req, res){
         const qryStr = `
-        SELECT client_id, first_name, last_name, id_number, cellphone, client_password, email, user_role, profile_img
+        SELECT client_id, first_name, last_name, gender, cellphone, client_password, email, user_role, profile_img
         FROM Clients;
         `;
 
