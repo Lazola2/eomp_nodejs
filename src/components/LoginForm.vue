@@ -53,17 +53,6 @@ export default {
     },
     methods: {
         login() {
-            // console.log({
-            //     email_address: this.email_address,
-            //     password: this.password
-            // })
-            // const res = await axios.post('https://node-api-eomp.onrender.com/login', {
-            //     email: this.email_address,
-            //     client_password: this.password
-            // });
-            // const {result, msg, err} = res.data
-
-            // console.log(result, msg, err);
             this.$store.dispatch('signIn', this.payload);
             console.log(this.$store.state.client);
             console.log(this.message);

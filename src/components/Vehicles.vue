@@ -8,7 +8,7 @@
                     <option value="Brand">Brand</option>
                     <option value="Mercedes-Benz">Mercedes-Benz</option>
                     <option value="BMW">BMW</option>
-                    <option value="AUDI">AUDI</option>
+                    <option value="Audi">AUDI</option>
                     <option value="HAVAL">HAVAL</option>
                 </select>
 
@@ -42,26 +42,51 @@
                 <button class="btn btn-dark text-white px-5" @click.prevent=filterVehicles> Filter </button>
             </form>
         </div>
-        <div v-for="vehicle in vehicles" :key="vehicle">
-            <!-- <h1>{{vehicle.model}}</h1> -->
-            <div class="car position-relative">
-                <div class="condition px-3 py-1 rounded-1 d-inline position-absolute">
-                    {{vehicle.is_new ? 'New' : 'Pre-Owned'}}
+        <div v-if="filtered" class="d-flex flex-wrap d-flex justify-content-center">
+            <div v-for="vehicle in filtered" :key="vehicle">
+                <!-- <h1>{{vehicle.model}}</h1> -->
+                <div class="car position-relative">
+                    <div class="condition px-3 py-1 rounded-1 d-inline position-absolute">
+                        {{vehicle.is_new ? 'New' : 'Pre-Owned'}}
+                    </div>
+                    <div class="image-holder">
+                        <div class="image" :style="{backgroundImage: `url(${vehicle.image})`}">
+                    </div>
+                    </div>
+                    <div class="brand_model p-2">
+                        <p><span>{{vehicle.brand}}</span> <span>{{vehicle.model}}</span></p>
+                        <p><span>Price: </span> <span>R {{vehicle.price}}</span></p>    
+                        <p><span>Type:</span><span>{{vehicle.type}}</span></p>
+                        <p><span>Color:</span><span>{{vehicle.color}}</span></p>
+                    </div>
+                    <button class="btn_more">View more</button>
+                    
                 </div>
-                <div class="image-holder">
-                    <div class="image" :style="{backgroundImage: `url(${vehicle.image})`}">
-                </div>
-                </div>
-                <div class="brand_model p-2">
-                    <p><span>{{vehicle.brand}}</span> <span>{{vehicle.model}}</span></p>
-                    <p><span>Price: </span> <span>R {{vehicle.price}}</span></p>    
-                    <p><span>Type:</span><span>{{vehicle.type}}</span></p>
-                    <p><span>Color:</span><span>{{vehicle.color}}</span></p>
-                </div>
-                <button class="btn_more">View more</button>
-                
             </div>
         </div>
+        <div v-else-if="vehicles" class=" d-flex flex-wrap d-flex justify-content-center">
+            <div v-for="vehicle in vehicles" :key="vehicle">
+                <!-- <h1>{{vehicle.model}}</h1> -->
+                <div class="car position-relative">
+                    <div class="condition px-3 py-1 rounded-1 d-inline position-absolute">
+                        {{vehicle.is_new ? 'New' : 'Pre-Owned'}}
+                    </div>
+                    <div class="image-holder">
+                        <div class="image" :style="{backgroundImage: `url(${vehicle.image})`}">
+                    </div>
+                    </div>
+                    <div class="brand_model p-2">
+                        <p><span>{{vehicle.brand}}</span> <span>{{vehicle.model}}</span></p>
+                        <p><span>Price: </span> <span>R {{vehicle.price}}</span></p>    
+                        <p><span>Type:</span><span>{{vehicle.type}}</span></p>
+                        <p><span>Color:</span><span>{{vehicle.color}}</span></p>
+                    </div>
+                    <button class="btn_more">View more</button>
+                    
+                </div>
+            </div>
+        </div>
+       
     </div>
     <div v-else>
         <!-- <h1 class="text-white">No vehicle found</h1> -->
@@ -101,28 +126,7 @@ export default {
                 return vehicle.is_new == this.condition
             });  
 
-           
-            if (this.filtered === false){
-                this.setVehicles(filteredByCondition)
-                this.filtered = true;
-            }
-            else {
-                this.fetchVehicles();
-                this.setVehicles(filteredByCondition)
-                this.filtered = false;
-            }
-
-            
-            // alert(this.filtered);
-            // setTimeout(()=> {
-            //     this.fetchVehicles();
-            // }, 3000);
-            // console.log(filteredByCondition);
-            // return the final filter
-            // return filteredByCondition;
-            // this.setVehicles(this.keepVehicles);
-            // this.setVehicles(filteredByCondition);
-           
+            this.filtered = filteredByCondition;
         }
 
         
@@ -133,7 +137,7 @@ export default {
     },
     data(){
         return {
-            filtered: false,
+            filtered: null,
             brand: 'Brand',
             color:'Color',
             type: 'Type',

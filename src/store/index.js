@@ -72,32 +72,54 @@ export default createStore({
       }
     },
 
-  
-
-    async login(context, info){
-      try {
-        let res = await fetch(`${URL}login`, {
-          method: 'POST',
-          body: info
-        });
-        let data = await res.json();
-        context.commit('setLoggedUser', data.results)
-      }
-      catch(err){
-        console.log(err);
-      }    
-    },
+    // async login(context, info){
+    //   try {
+    //     let res = await fetch(`${URL}login`, {
+    //       method: 'POST',
+    //       body: info
+    //     });
+    //     let data = await res.json();
+    //     context.commit('setLoggedUser', data.results)
+    //   }
+    //   catch(err){
+    //     console.log(err);
+    //   }    
+    // },
+    
+    // fetch vehicles
     async fetchVehicles(context) {
       try { 
         let res = await fetch(URL + 'vehicles');
         let data = await res.json();
         console.log(data);
         context.commit('setVehicles', data.results.length !== 0 ? data.results : null);
-      }catch(e) {
+      } catch(e) {
         console.log(e);
       }
     },
 
+    // delete client
+    async deleteClient(context, id){
+      let res = await axios.delete(`${URL}client/${id}`, id);
+      let {msg, err} = await res.data;
+      if(msg) {
+        context.dispatch('fetchClients');
+        context.commit('setMessage', msg);
+      } 
+      else {
+        context.commit('setMessage', err);
+      }
+        
+    },
+
+    // edit/update client
+    async updateClient(context, payload){
+      let res = await axios.put(`${URL}client/${payload.client_id}`, payload);
+      let {msg, err} = await res.data;
+      msg ? context.commit('setMessage', msg) : context.commit('setMessage', err);
+    },
+  
+    
     async fetchVehicle(context, id) {
       try { 
         let res = await fetch(`${URL}vehicle/${id}`);
@@ -130,5 +152,7 @@ export default createStore({
         console.log(e);
       }
     }
+
+    
   },
 })

@@ -71,7 +71,7 @@ export default {
     methods: {
         ...mapActions(['fetchClients']),
         signUp() {
-            console.log({
+            this.payload = {
                 first_name: this.first_name,
                 last_name: this.last_name,
                 id_number: this.id_number,
@@ -79,7 +79,7 @@ export default {
                 email: this.email,
                 client_password: this.client_password,
                 profile_img: this.profile_img
-            });
+            };
             this.$store.dispatch('signUp', this.payload);
             console.log(this.$store.state.client);
             console.log(this.message);

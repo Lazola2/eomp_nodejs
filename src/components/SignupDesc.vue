@@ -1,6 +1,6 @@
 <template lang="">
     <div class="signupDesc">
-        <p class="orange">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni earum quos fuga eligendi optio temporibus eos eaque molestiae dolores quod.</p>
+        <p class="orange">Please sign in to get full access of our website</p>
     </div>
 </template>
 <script>
